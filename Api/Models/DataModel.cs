@@ -4,7 +4,7 @@ namespace ApiTestDemo.Api.Models
 {
     public class DataModel
     {
-        public string scriptResult { get; set; }
+        public string? scriptResult { get; set; }
     }
 
     public class ItemModel
