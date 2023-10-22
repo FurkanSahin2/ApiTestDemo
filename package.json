@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "jquery": "3.7.1"
+  },
+  "dependencies": {
+    "@kanety/jquery-simple-tree-table": "^0.5.1"
+  }
+}

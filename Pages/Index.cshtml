@@ -1,0 +1,127 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ödev";
+}
+<title>Ödev</title>
+
+<style>
+    .button-container {
+        text-align: center;
+    }
+</style>
+
+<style>
+    table, td, th {
+        border: 1px solid;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function () {
+        // İlk etapta tüm alt satırları gizle
+        $('.child-row').hide();
+
+        // Üst satırların tıklanabilirliğini sağlama
+        $('.button').click(function () {
+            $(this).closest('tr').nextUntil('.parent-row').toggle();
+        });
+    });
+
+</script>
+
+<table>
+    <thead class="table-light">
+    <tr>
+        <th style="text-align: center;">Detay</th>
+        <th style="text-align: center;">Hesap Kodu</th>
+        <th style="text-align: center;">Toplam Borç</th>
+    </tr>
+    </thead>
+
+    <tr class="parent-row">
+        <td class="button">
+            <div class="button-container">
+                <button>+</button>
+            </div>
+        </td>
+        <td style ="text-align: center;">Üst Satır 1</td>
+        <td style ="text-align: center;">Üst Satır 1.1</td>
+    </tr>
+    <tr class="child-row">
+        <td></td>
+        <td style="text-align: center;">Alt Satır 1</td>
+        <td style="text-align: center;">Alt Satır 1.1</td>
+    </tr>
+    <tr class="child-row">
+        <td></td>
+        <td style="text-align: center;">Alt Satır 2 </td>
+        <td style="text-align: center;">Alt Satır 2.1</td>
+    </tr>
+    <tr class="parent-row">
+        <td class="button">
+            <div class="button-container">
+                <button>+</button>
+            </div>
+        </td>
+        <td style="text-align: center;">Üst Satır 2</td>
+        <td style="text-align: center;">Üst Satır 2.1</td>
+    </tr>
+    <tr class="child-row">
+        <td></td>
+        <td style="text-align: center;">Alt Satır 3 </td>
+        <td style ="text-align: center;">Alt Satır 3.1</td>
+    </tr>
+</table>
+
+
+
+
+<div>
+    <table>
+        <thead class="table-light">
+            <tr>
+                <th style="text-align: center;">Detay</th>
+                <th style="text-align: center;">Hesap Kodu</th>
+                <th style="text-align: center;">Toplam Borç</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items.GroupBy(s => s.hesap_kodu))
+            {
+                <tr class="text-xl-center">
+                    <td class="button">
+                        <div class="button-container">
+                            <button>+</button>
+                        </div>
+                    </td>
+                    <td>@item.Key</td>
+                    <td>
+                        <ul>
+                            @foreach (var subItem in Model.GetChildren(item.Key).GroupBy(s => string.Join('.', s.hesap_kodlari.Take(2))))
+                            {
+                                @foreach (var subItem2 in Model.GetChildren(subItem.Key))
+                                {
+                                    <li style="color:red">@(subItem2.borc.HasValue ? subItem2.borc : "0") TL</li>
+                                }
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
