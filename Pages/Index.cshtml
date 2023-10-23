@@ -83,15 +83,26 @@
                     }
                 </td>
             </tr>
-            <tr class="child-row">
-                <td></td>
-                <td style="text-align: center;">Alt Hesap Kodu</td>
-                <td style="text-align: center;">Alt Toplam Borç</td>
-            </tr>
+            @foreach (var subItem in Model.GetChildren(item.Key).GroupBy(s => string.Join('.', s.hesap_kodlari.Take(2))))
+            {
+                <tr class="child-row">
+                    <td></td>
+                    <td style="text-align: center;">@subItem.Key</td>
+                    <td style="text-align: center;">
+                        <ul>
+                            @foreach (var subItem2 in Model.GetChildren(subItem.Key))
+                            {
+                                <li type="none" style="color:red">@(subItem2.borc.HasValue ? subItem2.borc : "0") TL</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
         }
         </tbody>
     </table>
 </div>
+
 
 
 
