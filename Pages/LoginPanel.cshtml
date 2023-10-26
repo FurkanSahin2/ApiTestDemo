@@ -1,0 +1,63 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Login";
+}
+<title>Login</title>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Login</title>
+
+    <script>
+        function yonlendir() {
+            var kullaniciAdi = document.getElementById("kullaniciAdi").value;
+            var sifre = document.getElementById("sifre").value;
+
+           
+            if (kullaniciAdi === "apitest" && sifre === "test123") {
+                
+                window.location.href = 'http://apitestdemo.somee.com/';
+
+            } else {
+                alert("Kullanıcı adı veya şifre hatalı!");
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+</head>
+
+<body style="background-color: #eaeaea">
+    <form id="loginForm" runat="server">
+        <div class="container" style="width: 30%; height: 390px; background-color: white; margin-top: 90px; border-radius: 10px">
+            <div class="form-group">
+                <br />
+                <h2 class="text-center">Kullanıcı Girişi</h2>
+            </div>
+            <div class="form-group">
+                <br />
+                <label for="kullaniciAdi"> <b>Kullanıcı Adı: </b> </label>
+                <input type="text" id="kullaniciAdi" class="form-control" placeholder="Kullanıcı adı giriniz" required>
+            </div>
+            <div class="form-group">
+                <br />
+                <label for="sifre"> <b>Şifre: </b>  </label>
+                <input type="password" id="sifre" class="form-control" placeholder="Şifre giriniz" required>
+            </div>
+            <div class="form-group;">
+                <br />
+                <!-- <asp:Button ID="btnGiris" CssClass="btn btn-primary form-control" runat="server" Text="Giriş Yap" />
+                <button style="display: block; margin: 0 auto;" class="btn btn-danger" onclick="window.location.href = 'http://apitestdemo.somee.com/table/';">Giriş Yap</button> -->
+                <input style="display: block; margin: 0 auto;" class="btn btn-danger" type="button" value="Giriş Yap" onclick="yonlendir()">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
