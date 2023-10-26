@@ -4,142 +4,65 @@
 @{
     ViewData["Title"] = "Ödev";
 }
-<title>Ödev</title>
 
-<!-- <style>
-    table, th, td {
-        border: 1px solid #ddd
-    }
+<title>Login</title>
 
-    th, td {
-        padding: 10px;
-        text-align: left
-    }
+<!DOCTYPE html>
 
-    thead {
-        background-color: #fff
-    }
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Login</title>
 
-    button {
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer
-    }
-
-        button p {
-            margin: 0
-        }
-
-    tr:nth-child(2n) {
-        background: #CCC
-    }
-
-    .form {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        width: fit-content;
-        gap: 10px
-    }
-</style> -->
-
-<style>
-    body {
-        font-family: 'Palatino Linotype';
-    }
-
-    .button-container {
-        text-align: center;
-    }
-</style>
-<style>
-    table, td, th {
-        border: 1px solid;
-    }
-
-    table {
-        width: 100%;
-        border-collapse:initial;
-    }
-</style> 
-
-<style>
-    table.ortala {
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+        function yonlendir() {
+            var kullaniciAdi = document.getElementById("kullaniciAdi").value;
+            var sifre = document.getElementById("sifre").value;
 
 
-<script>
+            if (kullaniciAdi === "apitest" && sifre === "test123") {
 
-    $(document).ready(function () {
-        // İlk etapta tüm alt satırları gizle
-        $('.child-row').hide();
+                window.location.href = 'http://apitestdemo.somee.com/table';
 
-        // Üst satırların tıklanabilirliğini sağlama
-        $('.button').click(function () {
-            $(this).closest('tr').nextUntil('.parent-row').toggle();
-        });
-    });
-
-</script>
-
-<div>
-    <table class="ortala" cellpadding="10" cellspacing="0">
-
-        <thead class="table-light">
-        <tr>
-            <th style="text-align: center;">Detay</th>
-            <th style="text-align: center;">Hesap Kodu</th>
-            <th style="text-align: center;">Toplam Borç</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach (var item in Model.Items.GroupBy(s => s.hesap_kodu))
-        {
-                <tr class="parent-row">
-                    <td class="button" style="width: 80px;">
-                    <div class="button-container">
-                        <button>+</button>
-                    </div>
-                </td>
-                    <td style="text-align: center;">
-                    @item.Key
-                </td>
-                <td style="text-align: center;">
-                    @foreach (var subItem in Model.GetChildren(item.Key).GroupBy(s => string.Join('.', s.hesap_kodlari.Take(2))))
-                    {
-                        @foreach (var subItem2 in Model.GetChildren(subItem.Key))
-                        {
-                            <li type="none" style="color:red">@(subItem2.borc.HasValue ? subItem2.borc : "0") TL</li>
-                        }
-                    }
-                </td>
-            </tr>
-            @foreach (var subItem in Model.GetChildren(item.Key).GroupBy(s => string.Join('.', s.hesap_kodlari.Take(2))))
-            {
-                <tr class="child-row">
-                    <td></td>
-                    <td style="text-align: center;">@subItem.Key</td>
-                    <td style="text-align: center;">
-                        <ul>
-                            @foreach (var subItem2 in Model.GetChildren(subItem.Key))
-                            {
-                                <li type="none" style="color:red">@(subItem2.borc.HasValue ? subItem2.borc : "0") TL</li>
-                            }
-                        </ul>
-                    </td>
-                </tr>
+            } else {
+                alert("Kullanıcı adı veya şifre hatalı!");
             }
         }
-        </tbody>
-    </table>
-</div>
+    </script>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+</head>
+
+<body style="background-color: #eaeaea">
+    <form id="loginForm" runat="server">
+        <div class="container" style="width: 30%; height:auto; background-color: white; margin-top: 90px; border-radius: 10px">
+            <div class="form-group">
+                <br />
+                <h2 class="text-center">Kullanıcı Girişi</h2>
+            </div>
+            <div class="form-group">
+                <br />
+                <label for="kullaniciAdi"> <b>Kullanıcı Adı: </b> </label>
+                <input type="text" id="kullaniciAdi" class="form-control" placeholder="Kullanıcı adı giriniz" required>
+            </div>
+            <div class="form-group">
+                <br />
+                <label for="sifre"> <b>Şifre: </b>  </label>
+                <input type="password" id="sifre" class="form-control" placeholder="Şifre giriniz" required>
+            </div>
+            <div class="form-group;">
+                <br />
+                <!-- <asp:Button ID="btnGiris" CssClass="btn btn-primary form-control" runat="server" Text="Giriş Yap" />
+                <button style="display: block; margin: 0 auto;" class="btn btn-danger" onclick="window.location.href = 'http://apitestdemo.somee.com/table/';">Giriş Yap</button> -->
+                <input style="display: block; margin: 0 auto;" class="btn btn-danger" type="button" value="Giriş Yap" onclick="yonlendir()">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
 
 
 
