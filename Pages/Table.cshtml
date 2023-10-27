@@ -76,10 +76,10 @@
 <script>
 
     $(document).ready(function () {
-        // İlk etapta tüm alt satırları gizle
+      
         $('.child-row').hide();
 
-        // Üst satırların tıklanabilirliğini sağlama
+       
         $('.button').click(function () {
             $(this).closest('tr').nextUntil('.parent-row').toggle();
         });
